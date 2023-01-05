@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "doctors")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,5 +30,13 @@ public class Doctor {
 
     @Embedded
     private Address address;
+
+    public Doctor(DoctorRegistrationData doctorRegistrationData) {
+        this.name = doctorRegistrationData.name();
+        this.email = doctorRegistrationData.email();
+        this.crm = doctorRegistrationData.crm();
+        this.specialty = doctorRegistrationData.specialty();
+        this.address = new Address(doctorRegistrationData.addressData());
+    }
 
 }

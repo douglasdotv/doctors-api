@@ -16,6 +16,11 @@ public class Address {
     private String state;
     private String zipCode;
 
-
+    public Address(AddressData addressData) {
+        this.streetAddress = addressData.streetAddress();
+        this.city = addressData.city();
+        this.state = addressData.state();
+        this.zipCode = addressData.zipCode();
+    }
 
 }
