@@ -4,6 +4,7 @@ import br.com.dv.api.doctor.Doctor;
 import br.com.dv.api.doctor.DoctorRegistrationData;
 import br.com.dv.api.doctor.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class DoctorController {
     }
 
     @PostMapping
+    @Transactional
     public void register(@RequestBody DoctorRegistrationData doctorRegistrationData) {
         doctorRepository.save(new Doctor(doctorRegistrationData));
     }
