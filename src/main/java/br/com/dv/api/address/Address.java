@@ -23,4 +23,18 @@ public class Address {
         this.zipCode = addressData.zipCode();
     }
 
+    public void updateData(AddressData address) {
+        if (address.streetAddress() != null) {
+            this.streetAddress = address.streetAddress();
+        }
+        if (address.city() != null) {
+            this.city = address.city();
+        }
+        if (address.state() != null) {
+            this.state = address.state();
+        }
+        if (address.zipCode() != null) {
+            this.zipCode = address.zipCode();
+        }
+    }
 }

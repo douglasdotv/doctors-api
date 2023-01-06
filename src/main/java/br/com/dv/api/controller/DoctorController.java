@@ -1,9 +1,6 @@
 package br.com.dv.api.controller;
 
-import br.com.dv.api.doctor.Doctor;
-import br.com.dv.api.doctor.DoctorListingData;
-import br.com.dv.api.doctor.DoctorRegistrationData;
-import br.com.dv.api.doctor.DoctorRepository;
+import br.com.dv.api.doctor.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +31,13 @@ public class DoctorController {
         return doctorRepository
                 .findAll(pageable)
                 .map(DoctorListingData::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorUpdateData doctorUpdateData) {
+        var doctor = doctorRepository.getReferenceById(doctorUpdateData.id());
+        doctor.updateData(doctorUpdateData);
     }
 
 }

@@ -39,4 +39,16 @@ public class Doctor {
         this.address = new Address(doctorRegistrationData.addressData());
     }
 
+    public void updateData(DoctorUpdateData doctorUpdateData) {
+        if (doctorUpdateData.name() != null) {
+            this.name = doctorUpdateData.name();
+        }
+        if (doctorUpdateData.email() != null) {
+            this.email = doctorUpdateData.email();
+        }
+        if (doctorUpdateData.address() !=null) {
+            this.address.updateData(doctorUpdateData.address());
+        }
+    }
+
 }
