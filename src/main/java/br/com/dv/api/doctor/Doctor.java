@@ -31,12 +31,15 @@ public class Doctor {
     @Embedded
     private Address address;
 
+    private boolean isActive;
+
     public Doctor(DoctorRegistrationData doctorRegistrationData) {
         this.name = doctorRegistrationData.name();
         this.email = doctorRegistrationData.email();
         this.crm = doctorRegistrationData.crm();
         this.specialty = doctorRegistrationData.specialty();
         this.address = new Address(doctorRegistrationData.addressData());
+        this.isActive = true;
     }
 
     public void updateData(DoctorUpdateData doctorUpdateData) {
@@ -46,9 +49,13 @@ public class Doctor {
         if (doctorUpdateData.email() != null) {
             this.email = doctorUpdateData.email();
         }
-        if (doctorUpdateData.address() !=null) {
+        if (doctorUpdateData.address() != null) {
             this.address.updateData(doctorUpdateData.address());
         }
+    }
+
+    public void softDelete() {
+        this.isActive = false;
     }
 
 }

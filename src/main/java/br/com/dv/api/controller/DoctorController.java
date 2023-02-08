@@ -43,7 +43,8 @@ public class DoctorController {
     @DeleteMapping("/{id}")
     @Transactional
     public void remove(@PathVariable Long id) {
-        doctorRepository.deleteById(id);
+        var doctor = doctorRepository.getReferenceById(id);
+        doctor.softDelete();
     }
 
 }
