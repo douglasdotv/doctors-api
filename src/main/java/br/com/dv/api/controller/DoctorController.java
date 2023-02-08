@@ -29,7 +29,7 @@ public class DoctorController {
     @GetMapping
     public Page<DoctorListingData> list(@PageableDefault(size = 2, sort = {"name"}) Pageable pageable) {
         return doctorRepository
-                .findAll(pageable)
+                .findAllByIsActiveIsTrue(pageable)
                 .map(DoctorListingData::new);
     }
 
