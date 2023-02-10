@@ -1,4 +1,4 @@
-package br.com.dv.api.infra;
+package br.com.dv.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class ErrorHandler {
 
     // We should return 400 and a json with the errors when there are validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErrorData>> handleMethodArgumentNotValidExcpetion(MethodArgumentNotValidException
+    public ResponseEntity<List<ErrorData>> handleMethodArgumentNotValidException(MethodArgumentNotValidException
                                                                                              exception) {
         var errors = exception.getBindingResult().getFieldErrors();
         var errorData = errors.stream().map(ErrorData::new).toList();
