@@ -1,6 +1,6 @@
-package br.com.dv.api.doctor;
+package br.com.dv.api.domain.doctor;
 
-import br.com.dv.api.address.AddressData;
+import br.com.dv.api.domain.address.AddressData;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package br.com.dv.api.address;
+package br.com.dv.api.domain.address;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

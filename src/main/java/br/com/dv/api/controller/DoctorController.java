@@ -1,6 +1,6 @@
 package br.com.dv.api.controller;
 
-import br.com.dv.api.doctor.*;
+import br.com.dv.api.domain.doctor.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

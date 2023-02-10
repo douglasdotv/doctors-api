@@ -1,6 +1,6 @@
-package br.com.dv.api.doctor;
+package br.com.dv.api.domain.doctor;
 
-import br.com.dv.api.address.Address;
+import br.com.dv.api.domain.address.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

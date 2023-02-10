@@ -1,4 +1,4 @@
-package br.com.dv.api.doctor;
+package br.com.dv.api.domain.doctor;
 
 public enum Specialty {
 
