@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+// Although the @EqualsAndHashCode annotation throws a warning, I'm keeping it for now for the sake of simplicity.
 @EqualsAndHashCode(of = "id")
 public class User {
 
