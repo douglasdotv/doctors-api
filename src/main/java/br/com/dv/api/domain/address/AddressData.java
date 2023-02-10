@@ -4,13 +4,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record AddressData(
-        @NotBlank
+        @NotBlank(message = "{streetaddress.not.blank}")
         String streetAddress,
-        @NotBlank
+
+        @NotBlank(message = "{city.not.blank}")
         String city,
-        @NotBlank
+
+        @NotBlank(message = "{state.not.blank}")
         String state,
-        @NotBlank
-        @Pattern(regexp = "\\d{8}")
-        String zipCode) {
+
+        @NotBlank(message = "{zipcode.not.blank}")
+        @Pattern(regexp = "\\d{8}", message = "{zipcode.invalid}")
+        String zipCode
+) {
 }
