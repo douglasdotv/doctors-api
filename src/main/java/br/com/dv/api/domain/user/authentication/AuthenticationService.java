@@ -1,5 +1,6 @@
-package br.com.dv.api.domain.user;
+package br.com.dv.api.domain.user.authentication;
 
+import br.com.dv.api.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
