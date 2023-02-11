@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authManager;
 
     @Autowired
-    public AuthenticationController (AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    public AuthenticationController (AuthenticationManager authManager) {
+        this.authManager = authManager;
     }
 
     @PostMapping
-    public ResponseEntity<Void> authenticate(@RequestBody @Valid AuthenticationData authenticationData) {
-        var token = new UsernamePasswordAuthenticationToken(authenticationData.login(), authenticationData.password());
-        var authentication = authenticationManager.authenticate(token);
+    public ResponseEntity<Void> authenticate(@RequestBody @Valid AuthenticationData authData) {
+        var token = new UsernamePasswordAuthenticationToken(authData.login(), authData.password());
+        var auth = authManager.authenticate(token);
 
         return ResponseEntity.ok().build();
     }
