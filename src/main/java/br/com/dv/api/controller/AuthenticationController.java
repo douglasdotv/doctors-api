@@ -1,6 +1,8 @@
 package br.com.dv.api.controller;
 
+import br.com.dv.api.domain.user.User;
 import br.com.dv.api.domain.user.authentication.AuthenticationData;
+import br.com.dv.api.infra.security.JsonWebTokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationManager authManager;
+    private final JsonWebTokenService jwtService;
 
     @Autowired
-    public AuthenticationController (AuthenticationManager authManager) {
+    public AuthenticationController (AuthenticationManager authManager, JsonWebTokenService jwtService) {
         this.authManager = authManager;
+        this.jwtService = jwtService;
     }
 
     @PostMapping
-    public ResponseEntity<Void> authenticate(@RequestBody @Valid AuthenticationData authData) {
+    public ResponseEntity<String> authenticate(@RequestBody @Valid AuthenticationData authData) {
         var token = new UsernamePasswordAuthenticationToken(authData.login(), authData.password());
         var auth = authManager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(jwtService.generateToken((User) auth.getPrincipal()));
     }
 
 }
