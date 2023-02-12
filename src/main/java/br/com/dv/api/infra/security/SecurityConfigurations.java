@@ -2,6 +2,7 @@ package br.com.dv.api.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,13 +19,18 @@ public class SecurityConfigurations {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         /*
-        RESTful APIs must be stateless, and CSRF protection is not needed,
-        because the authentication is done via token.
+        - RESTful APIs must be stateless.
+        - CSRF protection is not needed, because the authentication is done via token.
+        - The authentication endpoint must be public.
+        - All other endpoints require authentication.
          */
 
         return http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable()
-                .build();
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, "/auth").permitAll()
+                .anyRequest().authenticated()
+                .and().build();
     }
 
     @Bean
