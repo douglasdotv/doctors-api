@@ -18,11 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfigurations {
 
-    private final SecurityFilter securityFilter;
+    private final SecurityFilter filter;
 
     @Autowired
-    public SecurityConfigurations(SecurityFilter securityFilter) {
-        this.securityFilter = securityFilter;
+    public SecurityConfigurations(SecurityFilter filter) {
+        this.filter = filter;
     }
 
     @Bean
@@ -40,7 +40,7 @@ public class SecurityConfigurations {
                 .and().authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                 .anyRequest().authenticated()
-                .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

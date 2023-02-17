@@ -34,24 +34,24 @@ public class Doctor {
 
     private boolean isActive;
 
-    public Doctor(DoctorRegistrationData doctorRegistrationData) {
-        this.name = doctorRegistrationData.name();
-        this.email = doctorRegistrationData.email();
-        this.crm = doctorRegistrationData.crm();
-        this.specialty = doctorRegistrationData.specialty();
-        this.address = new Address(doctorRegistrationData.addressData());
+    public Doctor(DoctorRegistrationDto dto) {
+        this.name = dto.name();
+        this.email = dto.email();
+        this.crm = dto.crm();
+        this.specialty = dto.specialty();
+        this.address = new Address(dto.address());
         this.isActive = true;
     }
 
-    public void updateData(DoctorUpdateData doctorUpdateData) {
-        if (doctorUpdateData.name() != null) {
-            this.name = doctorUpdateData.name();
+    public void updateData(DoctorUpdateDto dto) {
+        if (dto.name() != null) {
+            this.name = dto.name();
         }
-        if (doctorUpdateData.email() != null) {
-            this.email = doctorUpdateData.email();
+        if (dto.email() != null) {
+            this.email = dto.email();
         }
-        if (doctorUpdateData.address() != null) {
-            this.address.updateData(doctorUpdateData.address());
+        if (dto.address() != null) {
+            this.address.updateData(dto.address());
         }
     }
 

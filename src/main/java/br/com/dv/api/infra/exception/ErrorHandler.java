@@ -20,16 +20,16 @@ public class ErrorHandler {
 
     // We should return 400 and a json with the errors when there are validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErrorData>> handleMethodArgumentNotValidException(MethodArgumentNotValidException
+    public ResponseEntity<List<ErrorDto>> handleMethodArgumentNotValidException(MethodArgumentNotValidException
                                                                                              exception) {
         var errors = exception.getBindingResult().getFieldErrors();
-        var errorData = errors.stream().map(ErrorData::new).toList();
+        var errorData = errors.stream().map(ErrorDto::new).toList();
 
         return ResponseEntity.badRequest().body(errorData);
     }
 
-    private record ErrorData(String field, String message) {
-        public ErrorData(FieldError fieldError) {
+    private record ErrorDto(String field, String message) {
+        public ErrorDto(FieldError fieldError) {
             this(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }

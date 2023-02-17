@@ -17,24 +17,27 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final JsonWebTokenService jwtService;
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
     @Autowired
-    public SecurityFilter(JsonWebTokenService jwtService, UserRepository userRepository) {
+    public SecurityFilter(JsonWebTokenService jwtService, UserRepository repository) {
         this.jwtService = jwtService;
-        this.userRepository = userRepository;
+        this.repository = repository;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         var token = retrieveToken(request);
+
         if (token != null) {
-            var subject = jwtService.getSubject(token);
-            var user = userRepository.findByLogin(subject);
+            var subject = jwtService.validateTokenAndGetSubject(token);
+            var user = repository.findByLogin(subject);
             var auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
+
         filterChain.doFilter(request, response);
     }
 

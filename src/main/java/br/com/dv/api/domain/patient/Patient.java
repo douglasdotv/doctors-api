@@ -31,20 +31,20 @@ public class Patient {
 
     private Boolean isActive;
 
-    public Patient(PatientRegistrationData patientRegistrationData) {
+    public Patient(PatientRegistrationDto dto) {
         this.isActive = true;
-        this.name = patientRegistrationData.name();
-        this.email = patientRegistrationData.email();
-        this.cpf = patientRegistrationData.cpf();
-        this.address = new Address(patientRegistrationData.addressData());
+        this.name = dto.name();
+        this.email = dto.email();
+        this.cpf = dto.cpf();
+        this.address = new Address(dto.address());
     }
 
-    public void updateData(PatientUpdateData patientUpdateData) {
-        if (patientUpdateData.name() != null) {
-            this.name = patientUpdateData.name();
+    public void updateData(PatientUpdateDto dto) {
+        if (dto.name() != null) {
+            this.name = dto.name();
         }
-        if (patientUpdateData.address() != null) {
-            this.address.updateData(patientUpdateData.address());
+        if (dto.address() != null) {
+            this.address.updateData(dto.address());
         }
 
     }
@@ -52,4 +52,5 @@ public class Patient {
     public void softDelete() {
         this.isActive = false;
     }
+
 }

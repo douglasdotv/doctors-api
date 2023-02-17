@@ -15,59 +15,59 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/doctors")
 public class DoctorController {
 
-    private final DoctorRepository doctorRepository;
+    private final DoctorRepository repository;
 
     @Autowired
-    public DoctorController(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
+    public DoctorController(DoctorRepository repository) {
+        this.repository = repository;
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DoctorJsonData> register(@RequestBody @Valid DoctorRegistrationData doctorRegistrationData,
-                                                   UriComponentsBuilder uriBuilder) {
-        var doctor = new Doctor(doctorRegistrationData);
-        doctorRepository.save(doctor);
+    public ResponseEntity<DoctorResponseDto> register(@RequestBody @Valid DoctorRegistrationDto dto,
+                                                      UriComponentsBuilder uriBuilder) {
+        var doctor = new Doctor(dto);
+        repository.save(doctor);
 
         var uri = uriBuilder.path("/doctors/{id}").buildAndExpand(doctor.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DoctorJsonData(doctor));
+        return ResponseEntity.created(uri).body(new DoctorResponseDto(doctor));
     }
 
     @GetMapping
-    public ResponseEntity<Page<DoctorListingData>> listAll(@PageableDefault(size = 2, sort = {"name"})
+    public ResponseEntity<Page<DoctorListingDto>> listAll(@PageableDefault(size = 2, sort = {"name"})
                                                                Pageable pageable) {
-        var page = doctorRepository
+        var page = repository
                 .findAllByIsActiveIsTrue(pageable)
-                .map(DoctorListingData::new);
+                .map(DoctorListingDto::new);
 
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DoctorResponseDto> list(@PathVariable Long id) {
+        var doctor = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DoctorResponseDto(doctor));
+    }
+
     @PutMapping
     @Transactional
-    public ResponseEntity<DoctorJsonData> update(@RequestBody @Valid DoctorUpdateData doctorUpdateData) {
-        var doctor = doctorRepository.getReferenceById(doctorUpdateData.id());
-        doctor.updateData(doctorUpdateData);
+    public ResponseEntity<DoctorResponseDto> update(@RequestBody @Valid DoctorUpdateDto dto) {
+        var doctor = repository.getReferenceById(dto.id());
+        doctor.updateData(dto);
 
-        return ResponseEntity.ok(new DoctorJsonData(doctor));
+        return ResponseEntity.ok(new DoctorResponseDto(doctor));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> remove(@PathVariable Long id) {
-        var doctor = doctorRepository.getReferenceById(id);
+        var doctor = repository.getReferenceById(id);
         doctor.softDelete();
 
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}")
-    @Transactional
-    public ResponseEntity<DoctorJsonData> list(@PathVariable Long id) {
-        var doctor = doctorRepository.getReferenceById(id);
-
-        return ResponseEntity.ok(new DoctorJsonData(doctor));
     }
 
 }

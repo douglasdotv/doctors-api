@@ -16,25 +16,25 @@ public class Address {
     private String state;
     private String zipCode;
 
-    public Address(AddressData addressData) {
-        this.streetAddress = addressData.streetAddress();
-        this.city = addressData.city();
-        this.state = addressData.state();
-        this.zipCode = addressData.zipCode();
+    public Address(AddressDto addressDto) {
+        this.streetAddress = addressDto.streetAddress();
+        this.city = addressDto.city();
+        this.state = addressDto.state();
+        this.zipCode = addressDto.zipCode();
     }
 
-    public void updateData(AddressData address) {
-        if (address.streetAddress() != null) {
-            this.streetAddress = address.streetAddress();
+    public void updateData(AddressDto dto) {
+        if (dto.streetAddress() != null) {
+            this.streetAddress = dto.streetAddress();
         }
-        if (address.city() != null) {
-            this.city = address.city();
+        if (dto.city() != null) {
+            this.city = dto.city();
         }
-        if (address.state() != null) {
-            this.state = address.state();
+        if (dto.state() != null) {
+            this.state = dto.state();
         }
-        if (address.zipCode() != null) {
-            this.zipCode = address.zipCode();
+        if (dto.zipCode() != null) {
+            this.zipCode = dto.zipCode();
         }
     }
 }

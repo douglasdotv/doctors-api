@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Service
@@ -32,11 +32,13 @@ public class JsonWebTokenService {
     }
 
     private Date getExpirationDate() {
-        var instant = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        var zoneId = ZoneId.of("America/Sao_Paulo");
+        var zonedDateTime = LocalDateTime.now().plusHours(2).atZone(zoneId);
+        var instant = zonedDateTime.toInstant();
         return Date.from(instant);
     }
 
-    public String getSubject(String token) {
+    public String validateTokenAndGetSubject(String token) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
