@@ -1,0 +1,1 @@
+ALTER TABLE appointments ADD COLUMN specialty VARCHAR(255);
