@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
-    private final AppointmentRepository repository;
+    private final AppointmentScheduler scheduler;
 
     @Autowired
-    public AppointmentController(AppointmentRepository repository) {
-        this.repository = repository;
+    public AppointmentController(AppointmentScheduler scheduler) {
+        this.scheduler = scheduler;
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<AppointmentResponseDto> schedule(@RequestBody @Valid AppointmentSchedulingDto dto) {
-        // TODO
+        scheduler.schedule(dto);
 
         return ResponseEntity.ok(new AppointmentResponseDto(
                 null,
@@ -37,7 +37,7 @@ public class AppointmentController {
 
     @GetMapping
     public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 2, sort = {"date"})
-                                                          Pageable pageable) {
+                                                               Pageable pageable) {
         // TODO
 
         return ResponseEntity.ok(null);
