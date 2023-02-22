@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public record AppointmentResponseDto(Long id,
                                      Long doctorId,
                                      Long patientId,
-                                     LocalDateTime date,
+                                     LocalDateTime scheduledDateTime,
                                      Specialty specialty) {
 
 }

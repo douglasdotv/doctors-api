@@ -29,7 +29,7 @@ public class AppointmentScheduler {
 
         var doctor = chooseDoctor(dto);
 
-        var appointment = new Appointment(null, doctor, patient, dto.date(), dto.specialty());
+        var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), dto.specialty());
 
         appointmentRepository.save(appointment);
     }
@@ -51,7 +51,7 @@ public class AppointmentScheduler {
             throw new AppointmentValidationException("Specialty is required if doctor is not chosen");
         }
 
-        return doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.date());
+        return doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.scheduledDateTime());
     }
 
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public record AppointmentListingDto(Long doctorId,
                                     Long patientId,
-                                    LocalDateTime date,
+                                    LocalDateTime scheduledDateTime,
                                     Specialty specialty) {
 
 }

@@ -12,16 +12,17 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     // Cannot resolve property 'isActive', but it is a valid property of the entity and the GET request works.
     Page<Doctor> findAllByIsActiveIsTrue(Pageable pageable);
 
-    @Query("""
-            SELECT d FROM Doctor d
-                    WHERE d.isActive = true
-                    AND d.specialty = :specialty
-                    AND d.id NOT IN (
-                        SELECT a.doctor.id FROM Appointment a
-                        WHERE a.date = :date
-                    )
-                    ORDER BY FUNCTION('RAND')
-            """)
-    Doctor chooseRandomDoctorBySpecialtyAndAvailability(Specialty specialty, LocalDateTime date);
+    @Query(value = """
+            SELECT * FROM doctors
+            WHERE is_active = true
+            AND specialty = :specialty
+            AND id NOT IN (
+                SELECT doctor_id FROM appointments
+                WHERE scheduled_date_time = :scheduledDateTime
+            )
+            ORDER BY RAND()
+            LIMIT 1;
+            """, nativeQuery = true)
+    Doctor chooseRandomDoctorBySpecialtyAndAvailability(Specialty specialty, LocalDateTime scheduledDateTime);
 
 }

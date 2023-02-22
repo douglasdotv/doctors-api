@@ -36,7 +36,7 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 2, sort = {"date"})
+    public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 2, sort = {"scheduledDateTime"})
                                                                Pageable pageable) {
         // TODO
 

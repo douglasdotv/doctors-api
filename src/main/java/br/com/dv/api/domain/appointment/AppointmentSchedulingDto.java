@@ -13,7 +13,7 @@ public record AppointmentSchedulingDto(Long doctorId,
 
                                        @NotNull
                                        @Future
-                                       LocalDateTime date,
+                                       LocalDateTime scheduledDateTime,
 
                                        Specialty specialty) {
 }
