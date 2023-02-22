@@ -4,7 +4,6 @@ import br.com.dv.api.domain.appointment.validation.AppointmentValidationExceptio
 import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.domain.doctor.DoctorRepository;
 import br.com.dv.api.domain.patient.PatientRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +24,10 @@ public class AppointmentScheduler {
     }
 
     public void schedule(AppointmentSchedulingDto dto) {
-        boolean doctorIdIsPresent = dto.doctorId() != null;
-
         var patient = patientRepository.findById(dto.patientId())
                 .orElseThrow(() -> new AppointmentValidationException("Patient id not found"));
 
-        var doctor = doctorIdIsPresent ?
-                doctorRepository.findById(dto.doctorId())
-                        .orElseThrow(() -> new AppointmentValidationException("Doctor id not found")) :
-                chooseDoctor(dto);
+        var doctor = chooseDoctor(dto);
 
         var appointment = new Appointment(null, doctor, patient, dto.date(), dto.specialty());
 
@@ -41,8 +35,23 @@ public class AppointmentScheduler {
     }
 
     private Doctor chooseDoctor(AppointmentSchedulingDto dto) {
-        // TODO
-        return null;
+        /*
+        'doctorId' is optional.
+        If present, the doctor will be chosen based on the id.
+        If not present, a random one will be chosen based on the specialty.
+         */
+        boolean doctorIdIsPresent = dto.doctorId() != null;
+
+        if (doctorIdIsPresent) {
+            return doctorRepository.findById(dto.doctorId())
+                    .orElseThrow(() -> new AppointmentValidationException("Doctor id not found"));
+        }
+
+        if (dto.specialty() == null) {
+            throw new AppointmentValidationException("Specialty is required if doctor is not chosen");
+        }
+
+        return doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.date());
     }
 
 }
