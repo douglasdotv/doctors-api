@@ -31,16 +31,22 @@ public class AppointmentScheduler {
     }
 
     public AppointmentResponseDto schedule(AppointmentSchedulingDto dto) {
+        if (!patientRepository.existsById(dto.patientId())) {
+            throw new AppointmentValidationException("Patient id not found");
+        }
+
+        if (dto.doctorId() != null && !doctorRepository.existsById(dto.doctorId())) {
+            throw new AppointmentValidationException("Doctor id not found");
+        }
+
         validations.forEach(v -> v.validate(dto));
 
-        var patient = patientRepository.findById(dto.patientId())
-                .orElseThrow(() -> new AppointmentValidationException("Patient id not found"));
-
+        var patient = patientRepository.getReferenceById(dto.patientId());
         var doctor = chooseDoctor(dto);
 
         var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), doctor.getSpecialty());
-
         appointmentRepository.save(appointment);
+
         return new AppointmentResponseDto(appointment);
     }
 
@@ -50,18 +56,16 @@ public class AppointmentScheduler {
         If present, the doctor will be chosen based on the id.
         If not present, a random one will be chosen based on the specialty.
          */
-        boolean doctorIdIsPresent = dto.doctorId() != null;
-
-        if (doctorIdIsPresent) {
-            return doctorRepository.findById(dto.doctorId())
-                    .orElseThrow(() -> new AppointmentValidationException("Doctor id not found"));
+        if (dto.doctorId() != null) {
+            return doctorRepository.getReferenceById(dto.doctorId());
         }
 
         if (dto.specialty() == null) {
             throw new AppointmentValidationException("Specialty is required if doctor is not chosen");
         }
 
-        var doctor = doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.scheduledDateTime());
+        var doctor = doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(),
+                dto.scheduledDateTime());
         if (doctor == null) {
             throw new AppointmentValidationException("No doctor available for this specialty");
         }
