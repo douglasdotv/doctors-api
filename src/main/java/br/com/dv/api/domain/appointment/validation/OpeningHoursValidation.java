@@ -2,9 +2,11 @@ package br.com.dv.api.domain.appointment.validation;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
+@Component
 public class OpeningHoursValidation {
 
     private static final int OPENING_HOUR = 7;

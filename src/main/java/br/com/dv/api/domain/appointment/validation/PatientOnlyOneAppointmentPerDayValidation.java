@@ -3,14 +3,23 @@ package br.com.dv.api.domain.appointment.validation;
 import br.com.dv.api.domain.appointment.AppointmentRepository;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Component
 public class PatientOnlyOneAppointmentPerDayValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;
     private static final int APPOINTMENT_DURATION = 1;
 
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+
+    @Autowired
+    public PatientOnlyOneAppointmentPerDayValidation(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
 
     public void validate(AppointmentSchedulingDto dto) {
         /*

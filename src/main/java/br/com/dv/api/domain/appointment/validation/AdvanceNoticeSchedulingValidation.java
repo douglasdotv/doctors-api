@@ -2,10 +2,12 @@ package br.com.dv.api.domain.appointment.validation;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@Component
 public class AdvanceNoticeSchedulingValidation {
 
     private static final int MINUTES_IN_ADVANCE = 30;

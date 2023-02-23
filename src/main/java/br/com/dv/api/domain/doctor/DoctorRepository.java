@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDateTime;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-    
+
     Page<Doctor> findAllByIsActiveIsTrue(Pageable pageable);
 
     @Query(value = """

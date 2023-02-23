@@ -3,10 +3,18 @@ package br.com.dv.api.domain.appointment.validation;
 import br.com.dv.api.domain.appointment.AppointmentRepository;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClashingAppointmentsValidation {
 
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+
+    @Autowired
+    public ClashingAppointmentsValidation(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
 
     public void validate (AppointmentSchedulingDto dto) {
         /*
