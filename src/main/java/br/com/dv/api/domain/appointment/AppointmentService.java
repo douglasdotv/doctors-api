@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AppointmentScheduler {
+public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
@@ -19,10 +19,10 @@ public class AppointmentScheduler {
     private final List<AppointmentValidation> validations;
 
     @Autowired
-    public AppointmentScheduler(AppointmentRepository appointmentRepository,
-                                DoctorRepository doctorRepository,
-                                PatientRepository patientRepository,
-                                List<AppointmentValidation> validations) {
+    public AppointmentService(AppointmentRepository appointmentRepository,
+                              DoctorRepository doctorRepository,
+                              PatientRepository patientRepository,
+                              List<AppointmentValidation> validations) {
 
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;

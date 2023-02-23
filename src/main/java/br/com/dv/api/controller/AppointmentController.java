@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
-    private final AppointmentScheduler scheduler;
+    private final AppointmentService scheduler;
     private final AppointmentRepository repository;
 
     @Autowired
-    public AppointmentController(AppointmentScheduler scheduler, AppointmentRepository repository) {
+    public AppointmentController(AppointmentService scheduler, AppointmentRepository repository) {
         this.scheduler = scheduler;
         this.repository = repository;
     }
