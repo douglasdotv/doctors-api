@@ -41,4 +41,12 @@ public class AppointmentController {
         return ResponseEntity.ok(page);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> cancel(@PathVariable Long id) {
+        scheduler.cancel(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

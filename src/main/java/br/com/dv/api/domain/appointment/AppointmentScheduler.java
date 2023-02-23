@@ -44,7 +44,7 @@ public class AppointmentScheduler {
         var patient = patientRepository.getReferenceById(dto.patientId());
         var doctor = chooseDoctor(dto);
 
-        var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), doctor.getSpecialty());
+        var appointment = new Appointment(dto, patient, doctor);
         appointmentRepository.save(appointment);
 
         return new AppointmentResponseDto(appointment);
@@ -70,6 +70,11 @@ public class AppointmentScheduler {
             throw new AppointmentValidationException("No doctor available for this specialty");
         }
         return doctor;
+    }
+
+    public void cancel(Long id) {
+        var appointment = appointmentRepository.getReferenceById(id);
+        appointment.softDelete();
     }
 
 }

@@ -36,6 +36,19 @@ public class Appointment {
     @Enumerated
     private Specialty specialty;
 
+    private boolean isActive = true;
+
+    public Appointment(AppointmentSchedulingDto dto, Patient patient, Doctor doctor) {
+        this.patient = patient;
+        this.doctor = doctor;
+        this.scheduledDateTime = dto.scheduledDateTime();
+        this.specialty = dto.specialty();
+    }
+
+    public void softDelete() {
+        this.isActive = false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
