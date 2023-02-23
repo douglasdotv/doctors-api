@@ -24,10 +24,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             """)
     Doctor chooseRandomDoctorBySpecialtyAndAvailability(Specialty specialty, LocalDateTime scheduledDateTime);
 
-    @Query(value = """
-            SELECT IF(is_active = 1, 1, 0) FROM doctors
-            WHERE id = :doctorId
-            """, nativeQuery = true)
+    @Query("""
+            SELECT CASE WHEN d.isActive = true THEN 1 ELSE 0 END FROM Doctor d
+            WHERE d.id = :doctorId
+            """)
     Integer findIsActiveById(Long doctorId);
 
 }
