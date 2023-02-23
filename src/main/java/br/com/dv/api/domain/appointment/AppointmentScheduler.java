@@ -37,11 +37,8 @@ public class AppointmentScheduler {
                 .orElseThrow(() -> new AppointmentValidationException("Patient id not found"));
 
         var doctor = chooseDoctor(dto);
-        if (doctor == null) {
-            throw new AppointmentValidationException("No doctor available for this specialty");
-        }
 
-        var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), dto.specialty());
+        var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), doctor.getSpecialty());
 
         appointmentRepository.save(appointment);
         return new AppointmentResponseDto(appointment);
@@ -64,7 +61,11 @@ public class AppointmentScheduler {
             throw new AppointmentValidationException("Specialty is required if doctor is not chosen");
         }
 
-        return doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.scheduledDateTime());
+        var doctor = doctorRepository.chooseRandomDoctorBySpecialtyAndAvailability(dto.specialty(), dto.scheduledDateTime());
+        if (doctor == null) {
+            throw new AppointmentValidationException("No doctor available for this specialty");
+        }
+        return doctor;
     }
 
 }
