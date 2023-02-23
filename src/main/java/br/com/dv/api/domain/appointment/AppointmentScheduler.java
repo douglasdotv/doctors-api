@@ -30,7 +30,7 @@ public class AppointmentScheduler {
         this.validations = validations;
     }
 
-    public void schedule(AppointmentSchedulingDto dto) {
+    public AppointmentResponseDto schedule(AppointmentSchedulingDto dto) {
         validations.forEach(v -> v.validate(dto));
 
         var patient = patientRepository.findById(dto.patientId())
@@ -44,6 +44,7 @@ public class AppointmentScheduler {
         var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), dto.specialty());
 
         appointmentRepository.save(appointment);
+        return new AppointmentResponseDto(appointment);
     }
 
     private Doctor chooseDoctor(AppointmentSchedulingDto dto) {

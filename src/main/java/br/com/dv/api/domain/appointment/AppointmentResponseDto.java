@@ -10,4 +10,14 @@ public record AppointmentResponseDto(Long id,
                                      LocalDateTime scheduledDateTime,
                                      Specialty specialty) {
 
+    public AppointmentResponseDto(Appointment appointment) {
+        this(
+                appointment.getId(),
+                appointment.getDoctor().getId(),
+                appointment.getPatient().getId(),
+                appointment.getScheduledDateTime(),
+                appointment.getSpecialty()
+        );
+    }
+
 }

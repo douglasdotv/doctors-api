@@ -26,7 +26,7 @@ public class ActiveDoctorValidation implements AppointmentValidation {
         }
 
         var doctorIsActive = doctorRepository.findIsActiveById(dto.doctorId());
-        if (!doctorIsActive) {
+        if (doctorIsActive != 1) {
             throw new AppointmentValidationException("Appointment cannot be scheduled: doctor is not active");
         }
 

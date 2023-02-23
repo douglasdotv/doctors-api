@@ -15,32 +15,30 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentController {
 
     private final AppointmentScheduler scheduler;
+    private final AppointmentRepository repository;
 
     @Autowired
-    public AppointmentController(AppointmentScheduler scheduler) {
+    public AppointmentController(AppointmentScheduler scheduler, AppointmentRepository repository) {
         this.scheduler = scheduler;
+        this.repository = repository;
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<AppointmentResponseDto> schedule(@RequestBody @Valid AppointmentSchedulingDto dto) {
-        scheduler.schedule(dto);
+        var appointment = scheduler.schedule(dto);
 
-        return ResponseEntity.ok(new AppointmentResponseDto(
-                null,
-                null,
-                null,
-                null,
-                null)
-        );
+        return ResponseEntity.ok(appointment);
     }
 
     @GetMapping
-    public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 2, sort = {"scheduledDateTime"})
+    public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 5, sort = {"scheduledDateTime"})
                                                                Pageable pageable) {
-        // TODO
+        var page = repository
+                .findAll(pageable)
+                .map(AppointmentListingDto::new);
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(page);
     }
 
 }
