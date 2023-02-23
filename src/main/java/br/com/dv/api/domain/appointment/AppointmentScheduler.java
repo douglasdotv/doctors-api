@@ -37,6 +37,9 @@ public class AppointmentScheduler {
                 .orElseThrow(() -> new AppointmentValidationException("Patient id not found"));
 
         var doctor = chooseDoctor(dto);
+        if (doctor == null) {
+            throw new AppointmentValidationException("No doctor available for this specialty");
+        }
 
         var appointment = new Appointment(null, doctor, patient, dto.scheduledDateTime(), dto.specialty());
 
