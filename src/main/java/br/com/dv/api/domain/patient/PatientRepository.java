@@ -10,9 +10,9 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     Page<Patient> findAllByIsActiveIsTrue(Pageable pageable);
 
     @Query(value = """
-            SELECT is_active FROM patients
+            SELECT IF(is_active = 1, 1, 0) FROM patients
             WHERE id = :patientId
             """, nativeQuery = true)
-    Boolean findIsActiveById(Long patientId);
+    Integer findIsActiveById(Long patientId);
 
 }
