@@ -1,11 +1,12 @@
 package br.com.dv.api.domain.appointment.validation;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
+import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
 import br.com.dv.api.domain.doctor.DoctorRepository;
 
 public class ActiveDoctorValidation {
 
-    private DoctorRepository repository;
+    private DoctorRepository doctorRepository;
 
     public void validate(AppointmentSchedulingDto dto) {
         /*
@@ -16,7 +17,7 @@ public class ActiveDoctorValidation {
             return;
         }
 
-        var doctorIsActive = repository.findIsActiveById(dto.doctorId());
+        var doctorIsActive = doctorRepository.findIsActiveById(dto.doctorId());
         if (!doctorIsActive) {
             throw new AppointmentValidationException("Appointment cannot be scheduled: doctor is not active");
         }

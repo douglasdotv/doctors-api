@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDateTime;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-
-    // Cannot resolve property 'isActive', but it is a valid property of the entity and the GET request works.
+    
     Page<Doctor> findAllByIsActiveIsTrue(Pageable pageable);
 
     @Query(value = """

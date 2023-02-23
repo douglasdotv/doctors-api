@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.exception;
 
 public class AppointmentValidationException extends RuntimeException {
 

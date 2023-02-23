@@ -3,17 +3,17 @@ package br.com.dv.api.domain.doctor;
 import br.com.dv.api.domain.address.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "doctors")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-// Although the @EqualsAndHashCode annotation throws a warning, I'm keeping it for now for the sake of simplicity.
-@EqualsAndHashCode(of = "id")
 public class Doctor {
 
     @Id
@@ -59,4 +59,16 @@ public class Doctor {
         this.isActive = false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Doctor doctor = (Doctor) o;
+        return id != null && Objects.equals(id, doctor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

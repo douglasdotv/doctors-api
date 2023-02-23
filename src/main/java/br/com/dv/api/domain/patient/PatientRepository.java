@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-    // Cannot resolve property 'isActive', but it is a valid property of the entity and the GET request works.
     Page<Patient> findAllByIsActiveIsTrue(Pageable pageable);
 
     @Query(value = """

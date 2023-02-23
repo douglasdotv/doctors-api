@@ -5,19 +5,18 @@ import br.com.dv.api.domain.doctor.Specialty;
 import br.com.dv.api.domain.patient.Patient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "appointments")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-// Although the @EqualsAndHashCode annotation throws a warning, I'm keeping it for now for the sake of simplicity.
-@EqualsAndHashCode(of = "id")
 public class Appointment {
 
     @Id
@@ -37,4 +36,16 @@ public class Appointment {
     @Enumerated
     private Specialty specialty;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Appointment that = (Appointment) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

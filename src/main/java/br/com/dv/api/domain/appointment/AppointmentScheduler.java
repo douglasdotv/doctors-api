@@ -1,6 +1,6 @@
 package br.com.dv.api.domain.appointment;
 
-import br.com.dv.api.domain.appointment.validation.AppointmentValidationException;
+import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
 import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.domain.doctor.DoctorRepository;
 import br.com.dv.api.domain.patient.PatientRepository;
