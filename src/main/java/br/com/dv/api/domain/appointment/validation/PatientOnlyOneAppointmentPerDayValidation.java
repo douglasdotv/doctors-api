@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientOnlyOneAppointmentPerDayValidation {
+public class PatientOnlyOneAppointmentPerDayValidation implements AppointmentValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;
