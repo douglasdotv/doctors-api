@@ -1,5 +1,6 @@
 package br.com.dv.api.infra.exception;
 
+import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,12 @@ public class ErrorHandler {
         var errorData = errors.stream().map(ErrorDto::new).toList();
 
         return ResponseEntity.badRequest().body(errorData);
+    }
+
+    @ExceptionHandler(AppointmentValidationException.class)
+    public ResponseEntity<String> handleAppointmentValidationException(AppointmentValidationException
+                                                                                           exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 
     private record ErrorDto(String field, String message) {
