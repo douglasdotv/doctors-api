@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientOnlyOneAppointmentPerDayValidation implements AppointmentValidation {
+public class PatientOnlyOneAppointmentPerDaySchedulingValidation implements AppointmentSchedulingValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;
@@ -16,7 +16,7 @@ public class PatientOnlyOneAppointmentPerDayValidation implements AppointmentVal
     private final AppointmentRepository appointmentRepository;
 
     @Autowired
-    public PatientOnlyOneAppointmentPerDayValidation(AppointmentRepository appointmentRepository) {
+    public PatientOnlyOneAppointmentPerDaySchedulingValidation(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }
 

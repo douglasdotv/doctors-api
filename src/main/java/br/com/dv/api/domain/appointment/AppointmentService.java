@@ -1,8 +1,8 @@
 package br.com.dv.api.domain.appointment;
 
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
-import br.com.dv.api.domain.appointment.validation.AdvanceNoticeCancellationValidation;
-import br.com.dv.api.domain.appointment.validation.AppointmentValidation;
+import br.com.dv.api.domain.appointment.validation.AppointmentCancellationValidation;
+import br.com.dv.api.domain.appointment.validation.AppointmentSchedulingValidation;
 import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.domain.doctor.DoctorRepository;
 import br.com.dv.api.domain.patient.PatientRepository;
@@ -17,18 +17,21 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
-    private final List<AppointmentValidation> validations;
+    private final List<AppointmentSchedulingValidation> schedulingValidations;
+    private final List<AppointmentCancellationValidation> cancellationValidations;
 
     @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository,
                               DoctorRepository doctorRepository,
                               PatientRepository patientRepository,
-                              List<AppointmentValidation> validations) {
+                              List<AppointmentSchedulingValidation> schedulingValidations,
+                              List<AppointmentCancellationValidation> cancellationValidations) {
 
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.patientRepository = patientRepository;
-        this.validations = validations;
+        this.schedulingValidations = schedulingValidations;
+        this.cancellationValidations = cancellationValidations;
     }
 
     public AppointmentResponseDto schedule(AppointmentSchedulingDto dto) {
@@ -40,7 +43,7 @@ public class AppointmentService {
             throw new AppointmentValidationException("Doctor id not found");
         }
 
-        validations.forEach(v -> v.validate(dto));
+        schedulingValidations.forEach(v -> v.validate(dto));
 
         var patient = patientRepository.getReferenceById(dto.patientId());
         var doctor = chooseDoctor(dto);
@@ -75,8 +78,7 @@ public class AppointmentService {
 
     public void cancel(Long id) {
         var appointment = appointmentRepository.getReferenceById(id);
-        AdvanceNoticeCancellationValidation validation = new AdvanceNoticeCancellationValidation();
-        validation.validate(appointment);
+        cancellationValidations.forEach(v -> v.validate(appointment));
         appointment.softDelete();
     }
 

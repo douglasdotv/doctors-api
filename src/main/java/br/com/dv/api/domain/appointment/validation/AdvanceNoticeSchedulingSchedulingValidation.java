@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Component
-public class AdvanceNoticeSchedulingValidation implements AppointmentValidation {
+public class AdvanceNoticeSchedulingSchedulingValidation implements AppointmentSchedulingValidation {
 
     private static final int MINUTES_IN_ADVANCE = 30;
 

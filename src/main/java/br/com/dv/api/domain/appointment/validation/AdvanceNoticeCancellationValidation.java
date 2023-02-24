@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Component
-public class AdvanceNoticeCancellationValidation {
+public class AdvanceNoticeCancellationValidation implements AppointmentCancellationValidation {
 
     private static final int HOURS_IN_ADVANCE = 24;
 

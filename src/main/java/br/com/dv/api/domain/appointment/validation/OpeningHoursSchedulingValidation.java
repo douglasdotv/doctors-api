@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 
 @Component
-public class OpeningHoursValidation implements AppointmentValidation {
+public class OpeningHoursSchedulingValidation implements AppointmentSchedulingValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;

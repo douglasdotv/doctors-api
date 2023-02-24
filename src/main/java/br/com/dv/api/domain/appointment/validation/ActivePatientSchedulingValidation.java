@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActivePatientValidation implements AppointmentValidation {
+public class ActivePatientSchedulingValidation implements AppointmentSchedulingValidation {
 
     private final PatientRepository patientRepository;
 
     @Autowired
-    public ActivePatientValidation(PatientRepository patientRepository) {
+    public ActivePatientSchedulingValidation(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
 

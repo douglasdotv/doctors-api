@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClashingAppointmentsValidation implements AppointmentValidation {
+public class ClashingAppointmentsSchedulingValidation implements AppointmentSchedulingValidation {
 
     private final AppointmentRepository appointmentRepository;
 
     @Autowired
-    public ClashingAppointmentsValidation(AppointmentRepository appointmentRepository) {
+    public ClashingAppointmentsSchedulingValidation(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }
 
