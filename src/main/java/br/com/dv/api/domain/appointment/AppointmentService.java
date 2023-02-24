@@ -1,6 +1,7 @@
 package br.com.dv.api.domain.appointment;
 
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
+import br.com.dv.api.domain.appointment.validation.AdvanceNoticeCancellationValidation;
 import br.com.dv.api.domain.appointment.validation.AppointmentValidation;
 import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.domain.doctor.DoctorRepository;
@@ -74,6 +75,8 @@ public class AppointmentService {
 
     public void cancel(Long id) {
         var appointment = appointmentRepository.getReferenceById(id);
+        AdvanceNoticeCancellationValidation validation = new AdvanceNoticeCancellationValidation();
+        validation.validate(appointment);
         appointment.softDelete();
     }
 
