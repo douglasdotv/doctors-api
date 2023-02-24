@@ -35,7 +35,7 @@ public class AppointmentController {
     public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 5, sort = {"scheduledDateTime"})
                                                                Pageable pageable) {
         var page = repository
-                .findAll(pageable)
+                .findAllByIsActiveIsTrue(pageable)
                 .map(AppointmentListingDto::new);
 
         return ResponseEntity.ok(page);
