@@ -1,6 +1,7 @@
 package br.com.dv.api.controller;
 
 import br.com.dv.api.domain.appointment.*;
+import br.com.dv.api.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,38 +17,31 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "bearer-key")
 public class AppointmentController {
 
-    private final AppointmentService scheduler;
-    private final AppointmentRepository repository;
+    private final AppointmentService service;
 
     @Autowired
-    public AppointmentController(AppointmentService scheduler, AppointmentRepository repository) {
-        this.scheduler = scheduler;
-        this.repository = repository;
+    public AppointmentController(AppointmentService service) {
+        this.service = service;
     }
 
     @PostMapping
     @Transactional
     public ResponseEntity<AppointmentResponseDto> schedule(@RequestBody @Valid AppointmentSchedulingDto dto) {
-        var appointment = scheduler.schedule(dto);
-
+        var appointment = service.schedule(dto);
         return ResponseEntity.ok(appointment);
     }
 
     @GetMapping
     public ResponseEntity<Page<AppointmentListingDto>> listAll(@PageableDefault(size = 5, sort = {"scheduledDateTime"})
                                                                Pageable pageable) {
-        var page = repository
-                .findAllByIsActiveIsTrue(pageable)
-                .map(AppointmentListingDto::new);
-
+        var page = service.listAll(pageable);
         return ResponseEntity.ok(page);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> cancel(@PathVariable Long id) {
-        scheduler.cancel(id);
-
+        service.cancel(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -2,7 +2,7 @@ package br.com.dv.api.domain.appointment.validation;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
-import br.com.dv.api.domain.doctor.DoctorRepository;
+import br.com.dv.api.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

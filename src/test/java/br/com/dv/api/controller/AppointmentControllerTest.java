@@ -2,7 +2,7 @@ package br.com.dv.api.controller;
 
 import br.com.dv.api.domain.appointment.AppointmentResponseDto;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
-import br.com.dv.api.domain.appointment.AppointmentService;
+import br.com.dv.api.service.AppointmentService;
 import br.com.dv.api.domain.doctor.Specialty;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

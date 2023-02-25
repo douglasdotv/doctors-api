@@ -1,5 +1,6 @@
-package br.com.dv.api.domain.appointment;
+package br.com.dv.api.repository;
 
+import br.com.dv.api.domain.appointment.Appointment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

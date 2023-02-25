@@ -1,5 +1,7 @@
-package br.com.dv.api.domain.doctor;
+package br.com.dv.api.repository;
 
+import br.com.dv.api.domain.doctor.Doctor;
+import br.com.dv.api.domain.doctor.Specialty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

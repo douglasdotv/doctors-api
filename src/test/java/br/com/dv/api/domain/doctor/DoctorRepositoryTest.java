@@ -4,6 +4,7 @@ import br.com.dv.api.domain.address.AddressDto;
 import br.com.dv.api.domain.appointment.Appointment;
 import br.com.dv.api.domain.patient.Patient;
 import br.com.dv.api.domain.patient.PatientRegistrationDto;
+import br.com.dv.api.repository.DoctorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

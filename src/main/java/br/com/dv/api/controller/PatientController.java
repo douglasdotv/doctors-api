@@ -1,6 +1,7 @@
 package br.com.dv.api.controller;
 
 import br.com.dv.api.domain.patient.*;
+import br.com.dv.api.service.PatientService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,55 +18,46 @@ import org.springframework.web.util.UriComponentsBuilder;
 @SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
-    private final PatientRepository repository;
+    private final PatientService service;
 
     @Autowired
-    public PatientController(PatientRepository repository) {
-        this.repository = repository;
+    public PatientController(PatientService service) {
+        this.service = service;
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PatientReponseDto> register(@RequestBody @Valid PatientRegistrationDto dto,
-                                                      UriComponentsBuilder uriBuilder) {
-        var patient = new Patient(dto);
-        repository.save(patient);
-
-        var uri = uriBuilder.path("/patients/{id}").buildAndExpand(patient.getId()).toUri();
-        return ResponseEntity.created(uri).body(new PatientReponseDto(patient));
+    public ResponseEntity<PatientResponseDto> register(@RequestBody @Valid PatientRegistrationDto dto,
+                                                       UriComponentsBuilder uriBuilder) {
+        var patient = service.create(dto);
+        var uri = uriBuilder.path("/patients/{id}").buildAndExpand(patient.id()).toUri();
+        return ResponseEntity.created(uri).body(patient);
     }
 
     @GetMapping
     public ResponseEntity<Page<PatientListingDto>> listAll(@PageableDefault(size = 2, sort = {"name"})
-                                                               Pageable pagination) {
-        var page = repository
-                .findAllByIsActiveIsTrue(pagination)
-                .map(PatientListingDto::new);
-
+                                                               Pageable pageable) {
+        var page = service.getAll(pageable);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientReponseDto> list(@PathVariable Long id) {
-        var patient = repository.getReferenceById(id);
-        return ResponseEntity.ok(new PatientReponseDto(patient));
+    public ResponseEntity<PatientResponseDto> list(@PathVariable Long id) {
+        var patient = service.get(id);
+        return ResponseEntity.ok(patient);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<PatientReponseDto> update(@RequestBody @Valid PatientUpdateDto dto) {
-        var patient = repository.getReferenceById(dto.id());
-        patient.updateData(dto);
-
-        return ResponseEntity.ok(new PatientReponseDto(patient));
+    public ResponseEntity<PatientResponseDto> update(@RequestBody @Valid PatientUpdateDto dto) {
+        var patient = service.update(dto);
+        return ResponseEntity.ok(patient);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> remove(@PathVariable Long id) {
-        var patient = repository.getReferenceById(id);
-        patient.softDelete();
-
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -2,13 +2,13 @@ package br.com.dv.api.domain.patient;
 
 import br.com.dv.api.domain.address.Address;
 
-public record PatientReponseDto(Long id,
-                                String name,
-                                String email,
-                                String cpf,
-                                Address address) {
+public record PatientResponseDto(Long id,
+                                 String name,
+                                 String email,
+                                 String cpf,
+                                 Address address) {
 
-    public PatientReponseDto(Patient patient) {
+    public PatientResponseDto(Patient patient) {
         this(
                 patient.getId(),
                 patient.getName(),
