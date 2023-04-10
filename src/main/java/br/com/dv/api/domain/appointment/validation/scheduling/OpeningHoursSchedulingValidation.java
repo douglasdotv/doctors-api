@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.validation.scheduling;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 
 @Component
-public class OpeningHoursSchedulingValidation implements AppointmentSchedulingValidation {
+public class OpeningHoursSchedulingValidation implements SchedulingValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;

@@ -5,8 +5,8 @@ import br.com.dv.api.domain.appointment.AppointmentListingDto;
 import br.com.dv.api.domain.appointment.AppointmentResponseDto;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
-import br.com.dv.api.domain.appointment.validation.AppointmentCancellationValidation;
-import br.com.dv.api.domain.appointment.validation.AppointmentSchedulingValidation;
+import br.com.dv.api.domain.appointment.validation.cancellation.CancellationValidation;
+import br.com.dv.api.domain.appointment.validation.scheduling.SchedulingValidation;
 import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.repository.AppointmentRepository;
 import br.com.dv.api.repository.DoctorRepository;
@@ -23,14 +23,14 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
-    private final List<AppointmentSchedulingValidation> schedulingValidations;
-    private final List<AppointmentCancellationValidation> cancellationValidations;
+    private final List<SchedulingValidation> schedulingValidations;
+    private final List<CancellationValidation> cancellationValidations;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               DoctorRepository doctorRepository,
                               PatientRepository patientRepository,
-                              List<AppointmentSchedulingValidation> schedulingValidations,
-                              List<AppointmentCancellationValidation> cancellationValidations) {
+                              List<SchedulingValidation> schedulingValidations,
+                              List<CancellationValidation> cancellationValidations) {
 
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;

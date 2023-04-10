@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.validation.scheduling;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Component
-public class AdvanceNoticeSchedulingSchedulingValidation implements AppointmentSchedulingValidation {
+public class AdvanceNoticeSchedulingValidation implements SchedulingValidation {
 
     private static final int MINUTES_IN_ADVANCE = 30;
 

@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.validation.cancellation;
 
 import br.com.dv.api.domain.appointment.Appointment;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
@@ -7,7 +7,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Component
-public class AdvanceNoticeCancellationValidation implements AppointmentCancellationValidation {
+public class AdvanceNoticeCancellationValidation implements CancellationValidation {
 
     private static final int HOURS_IN_ADVANCE = 24;
 

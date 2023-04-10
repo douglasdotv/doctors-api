@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.validation.scheduling;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
@@ -6,7 +6,7 @@ import br.com.dv.api.repository.AppointmentRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClashingAppointmentsSchedulingValidation implements AppointmentSchedulingValidation {
+public class ClashingAppointmentsSchedulingValidation implements SchedulingValidation {
 
     private final AppointmentRepository appointmentRepository;
 

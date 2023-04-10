@@ -1,4 +1,4 @@
-package br.com.dv.api.domain.appointment.validation;
+package br.com.dv.api.domain.appointment.validation.scheduling;
 
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
@@ -6,7 +6,7 @@ import br.com.dv.api.repository.AppointmentRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientOnlyOneAppointmentPerDaySchedulingValidation implements AppointmentSchedulingValidation {
+public class PatientOnlyOnePerDaySchedulingValidation implements SchedulingValidation {
 
     private static final int OPENING_HOUR = 7;
     private static final int CLOSING_HOUR = 19;
@@ -14,7 +14,7 @@ public class PatientOnlyOneAppointmentPerDaySchedulingValidation implements Appo
 
     private final AppointmentRepository appointmentRepository;
 
-    public PatientOnlyOneAppointmentPerDaySchedulingValidation(AppointmentRepository appointmentRepository) {
+    public PatientOnlyOnePerDaySchedulingValidation(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }
 
