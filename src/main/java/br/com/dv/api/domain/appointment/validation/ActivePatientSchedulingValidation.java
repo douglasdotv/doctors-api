@@ -3,7 +3,6 @@ package br.com.dv.api.domain.appointment.validation;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
 import br.com.dv.api.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +10,6 @@ public class ActivePatientSchedulingValidation implements AppointmentSchedulingV
 
     private final PatientRepository patientRepository;
 
-    @Autowired
     public ActivePatientSchedulingValidation(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }

@@ -1,9 +1,8 @@
 package br.com.dv.api.domain.appointment.validation;
 
-import br.com.dv.api.repository.AppointmentRepository;
 import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.dv.api.repository.AppointmentRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +14,6 @@ public class PatientOnlyOneAppointmentPerDaySchedulingValidation implements Appo
 
     private final AppointmentRepository appointmentRepository;
 
-    @Autowired
     public PatientOnlyOneAppointmentPerDaySchedulingValidation(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
     }

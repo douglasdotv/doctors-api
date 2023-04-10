@@ -1,10 +1,12 @@
 package br.com.dv.api.controller;
 
-import br.com.dv.api.domain.doctor.*;
+import br.com.dv.api.domain.doctor.DoctorListingDto;
+import br.com.dv.api.domain.doctor.DoctorRegistrationDto;
+import br.com.dv.api.domain.doctor.DoctorResponseDto;
+import br.com.dv.api.domain.doctor.DoctorUpdateDto;
 import br.com.dv.api.service.DoctorService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,7 +22,6 @@ public class DoctorController {
 
     private final DoctorService service;
 
-    @Autowired
     public DoctorController(DoctorService service) {
         this.service = service;
     }

@@ -1,6 +1,5 @@
 package br.com.dv.api.infra.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,7 +19,6 @@ public class SecurityConfigurations {
 
     private final SecurityFilter filter;
 
-    @Autowired
     public SecurityConfigurations(SecurityFilter filter) {
         this.filter = filter;
     }

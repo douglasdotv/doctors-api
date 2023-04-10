@@ -1,10 +1,11 @@
 package br.com.dv.api.controller;
 
-import br.com.dv.api.domain.appointment.*;
+import br.com.dv.api.domain.appointment.AppointmentListingDto;
+import br.com.dv.api.domain.appointment.AppointmentResponseDto;
+import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,7 +20,6 @@ public class AppointmentController {
 
     private final AppointmentService service;
 
-    @Autowired
     public AppointmentController(AppointmentService service) {
         this.service = service;
     }

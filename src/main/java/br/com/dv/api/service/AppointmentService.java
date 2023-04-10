@@ -1,6 +1,9 @@
 package br.com.dv.api.service;
 
-import br.com.dv.api.domain.appointment.*;
+import br.com.dv.api.domain.appointment.Appointment;
+import br.com.dv.api.domain.appointment.AppointmentListingDto;
+import br.com.dv.api.domain.appointment.AppointmentResponseDto;
+import br.com.dv.api.domain.appointment.AppointmentSchedulingDto;
 import br.com.dv.api.domain.appointment.exception.AppointmentValidationException;
 import br.com.dv.api.domain.appointment.validation.AppointmentCancellationValidation;
 import br.com.dv.api.domain.appointment.validation.AppointmentSchedulingValidation;
@@ -8,7 +11,6 @@ import br.com.dv.api.domain.doctor.Doctor;
 import br.com.dv.api.repository.AppointmentRepository;
 import br.com.dv.api.repository.DoctorRepository;
 import br.com.dv.api.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,6 @@ public class AppointmentService {
     private final List<AppointmentSchedulingValidation> schedulingValidations;
     private final List<AppointmentCancellationValidation> cancellationValidations;
 
-    @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository,
                               DoctorRepository doctorRepository,
                               PatientRepository patientRepository,

@@ -5,7 +5,6 @@ import br.com.dv.api.domain.user.authentication.AuthenticationDto;
 import br.com.dv.api.infra.security.JsonWebTokenService;
 import br.com.dv.api.infra.security.TokenDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +20,6 @@ public class AuthenticationController {
     private final AuthenticationManager manager;
     private final JsonWebTokenService jwtService;
 
-    @Autowired
     public AuthenticationController (AuthenticationManager manager, JsonWebTokenService jwtService) {
         this.manager = manager;
         this.jwtService = jwtService;

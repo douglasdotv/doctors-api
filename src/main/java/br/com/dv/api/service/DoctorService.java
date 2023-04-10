@@ -2,7 +2,6 @@ package br.com.dv.api.service;
 
 import br.com.dv.api.domain.doctor.*;
 import br.com.dv.api.repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ public class DoctorService {
 
     private final DoctorRepository repository;
 
-    @Autowired
     public DoctorService(DoctorRepository repository) {
         this.repository = repository;
     }
